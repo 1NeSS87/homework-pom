@@ -1,11 +1,12 @@
 package pages;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import utils.DateUtils;
 
 
 public class SearchPage {
@@ -18,16 +19,19 @@ public class SearchPage {
 
     @Step("Поиск рейсов (задаём только дату)")
     public void search(String departureDate) {
-
-        this.departureDate.setValue(departureDate);
+        this.departureDate.setValue(
+                DateUtils.formatDate(departureDate, Configuration.browser)
+        );
         this.findButton.click();
     }
 
     @Step("Поиск рейсов")
     public void search(String departureDate, String from, String to) {
-        this.departureDate.setValue(departureDate);
         this.cityFrom.selectOption(from);
         this.cityTo.selectOption(to);
+        this.departureDate.setValue(
+                DateUtils.formatDate(departureDate, Configuration.browser)
+        );
         this.findButton.click();
     }
 

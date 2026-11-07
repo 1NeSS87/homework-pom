@@ -36,12 +36,10 @@ public class FlightsListPage {
     }
 
     public void sortByPrice() {
-//        $("#sortField").click();
-//        $x("//option[@value='price']").click();
         this.sortField.selectOptionByValue("price");
     }
 
-    @Step("Демо-метод")
+    @Step("Проверка, что рейсы отсортированы по времени")
     public void isTimeSorted() {
         LocalTime prev = null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");

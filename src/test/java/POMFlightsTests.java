@@ -1,4 +1,5 @@
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.sleep;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 import com.codeborne.selenide.Configuration;
@@ -11,13 +12,13 @@ import pages.RegistrationPage;
 import pages.SearchPage;
 import utils.DateUtils;
 
-@TestMethodOrder(MethodOrderer.DisplayName.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class POMFlightsTests {
 
     @BeforeAll
     static void beforeAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
-        Configuration.browser = "firefox";
+        //Configuration.browser = "firefox";
     }
 
     @BeforeEach

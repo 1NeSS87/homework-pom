@@ -1,4 +1,5 @@
 package pages;
+
 import com.codeborne.selenide.Condition;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
@@ -24,7 +25,7 @@ public class LoginPage {
 
     @Step("Вход в систему")
     public void login(String username, String password) {
-        // $("#username").setValue("standard_user");
+        //$("#username").setValue("standard_user");
         this.username.setValue(username);
         this.password.setValue(password);
         this.loginButton.click();
@@ -39,7 +40,6 @@ public class LoginPage {
 
     @Step("Успешный логин")
     public void isLoginSuccessful(String fio) {
-
         this.greeting.shouldHave(text("Добро пожаловать, " + fio + "!"));
     }
 
