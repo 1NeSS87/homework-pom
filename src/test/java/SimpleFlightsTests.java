@@ -8,9 +8,11 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.Alert;
 
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 
 import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -101,7 +103,7 @@ public class SimpleFlightsTests {
                     $("#greeting").shouldHave(text("Добро пожаловать, Иванов Иван Иванович!"));
                     $("#departureCity").selectOption("Казань");
                     $("#arrivalCity").selectOption("Париж");
-                    $("#departureDate").setValue(formatDate("09.11.2026", Configuration.browser));
+                    $("#departureDate").setValue(formatDate(nextDayOfWeekDate(1), Configuration.browser));
                     sleep(5_000);
                     $x("//button[.='Найти']").click();
                 }
@@ -130,7 +132,7 @@ public class SimpleFlightsTests {
                     $("#greeting").shouldHave(text("Добро пожаловать, Иванов Иван Иванович!"));
                     $("#departureCity").selectOption("Москва");
                     $("#arrivalCity").selectOption("Нью-Йорк");
-                    $("#departureDate").setValue(formatDate("09.11.2026", Configuration.browser));
+                    $("#departureDate").setValue(formatDate(nextDayOfWeekDate(1), Configuration.browser));
                     $x("//button[.='Найти']").click();
                 }
         );
@@ -166,7 +168,7 @@ public class SimpleFlightsTests {
                     $("#greeting").shouldHave(text("Добро пожаловать, Иванов Иван Иванович!"));
                     $("#departureCity").selectOption("Москва");
                     $("#arrivalCity").selectOption("Нью-Йорк");
-                    $("#departureDate").setValue(formatDate("09.11.2026", Configuration.browser));
+                    $("#departureDate").setValue(formatDate(nextDayOfWeekDate(1), Configuration.browser));
                     $x("//button[.='Найти']").click();
                 }
         );
@@ -188,9 +190,16 @@ public class SimpleFlightsTests {
         );
     }
 
+    private static String nextDayOfWeekDate(int dayOfWeek) {
+        LocalDate today = LocalDate.now();
+        DayOfWeek target = DayOfWeek.of(dayOfWeek);
+        LocalDate next = today.with(TemporalAdjusters.next(target));
+        return next.format(DateTimeFormatter.ISO_LOCAL_DATE);
+    }
+
     private static String formatDate(String date, String browser) {
         LocalDate d = LocalDate.parse(date.trim(),
-                DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+                DateTimeFormatter.ISO_LOCAL_DATE);
         if (browser == null || browser.isBlank()) {
             return d.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         }
