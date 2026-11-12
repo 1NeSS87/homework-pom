@@ -14,6 +14,7 @@ public class RegistrationPage {
     SelenideElement
         flightInfo = $("#flightRegistrationInfo"),
         buttonFinishRegistration = $x("//button[contains(.,'Завершить регистрацию')]"),
+        buttonReturn = $x("//button[contains(.,'Вернуться к найденным рейсам')]"),
         fio = $(By.id("passengerName")),
         passport = $("#passportNumber"),
         email = $("#email"),
@@ -83,6 +84,11 @@ public class RegistrationPage {
     @Step("Нажать \"Завершить регистрацию\"")
     public void finishRegistration() {
         buttonFinishRegistration.click();
+    }
+
+    @Step("Нажать \"Вернуться к найденным рейсам\"")
+    public void returnSearchResult() {
+        this.buttonReturn.click();
     }
 
     @Step("Ошибка: номер паспорта должен содержать только цифры и пробелы")

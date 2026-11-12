@@ -7,11 +7,11 @@ repositories {
 }
 dependencies {
     // JUnit
-    testImplementation platform('org.junit:junit-bom:6.1.3')
+    testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     // Selenide
-    testImplementation 'com.codeborne:selenide:7.19.1'
+    testImplementation 'com.codeborne:selenide:7.17.0'
     // Allure
     testImplementation platform('io.qameta.allure:allure-bom:3.0.0')
     testImplementation 'io.qameta.allure:allure-jupiter'

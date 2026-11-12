@@ -29,4 +29,18 @@ public final class DateUtils {
             default                   -> d.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         };
     }
+
+    public static String datePlusMonths(int months) {
+        LocalDate today = LocalDate.now();
+        LocalDate nextMonth = today.plusMonths(months);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        return nextMonth.format(formatter);
+    }
+
+    public static String datePlusWeeks(String date, int weeks) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        LocalDate baseDate = LocalDate.parse(date, formatter);
+        LocalDate result = baseDate.plusWeeks(weeks);
+        return result.format(formatter);
+    }
 }

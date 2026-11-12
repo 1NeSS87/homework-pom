@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Assertions;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class FlightsListPage {
     SelenideElement
@@ -35,6 +36,7 @@ public class FlightsListPage {
         this.newSearchButton.click();
     }
 
+    @Step("Выбрать сортировку по цене")
     public void sortByPrice() {
         this.sortField.selectOptionByValue("price");
     }
@@ -54,5 +56,25 @@ public class FlightsListPage {
             }
             prev = current;
         }
+    }
+
+    @Step("Проверка, что рейсы отсортированы по цене")
+    public void isPriceSorted() {
+        List<String> values = $$x(".//td[6]")
+                .texts();
+        System.out.println(values);
+        List<Long> prices = values.stream()
+                .map(t -> {
+                    String digits = t.replaceAll("\\D+", "");
+                    return digits.isEmpty() ? 0L : Long.parseLong(digits);
+                })
+                .toList();
+        System.out.println(prices);
+
+        for (int i = 1; i < prices.size(); i++) {
+            Assertions.assertTrue(
+                    prices.get(i) >= prices.get(i - 1),
+                    "Сортировка не соответствует"
+            );}
     }
 }

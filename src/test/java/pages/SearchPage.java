@@ -15,7 +15,8 @@ public class SearchPage {
             cityTo = $("#arrivalCity"),
             departureDate = $("#departureDate"),
             findButton = $x("//button[.='Найти']"),
-            message = $("#searchMessage");
+            message = $("#searchMessage"),
+            buttonLogout = $("#logoutButton");
 
     @Step("Поиск рейсов (задаём только дату)")
     public void search(String departureDate) {
@@ -43,6 +44,11 @@ public class SearchPage {
     @Step("Проверка, что дата в прошлом")
     public void isDateInPast(){
         this.message.shouldHave(text("Невозможно осуществить поиск: выбранная дата уже прошла."));
+    }
+
+    @Step("Нажать \"Logout\"")
+    public void logoutSearch() {
+        this.buttonLogout.click();
     }
 
 }

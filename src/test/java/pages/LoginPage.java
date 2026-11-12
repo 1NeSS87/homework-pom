@@ -14,7 +14,8 @@ public class LoginPage {
     SelenideElement
         loginButton = $("#loginButton"),
         errorMessage = $("#message"),
-        greeting = $("#greeting");
+        greeting = $("#greeting"),
+        header = $("#loginContainer").find("h2");
 
     public LoginPage() {
         // Конструктор писать не обязательно
@@ -29,6 +30,14 @@ public class LoginPage {
         this.username.setValue(username);
         this.password.setValue(password);
         this.loginButton.click();
+    }
+
+    @Step("Успешный выход из системы")
+    public void afterLogout() {
+        this.header.shouldBe(visible);
+        this.header.shouldHave(text("Аутентификация"));
+        this.loginButton.shouldBe(visible);
+        this.greeting.shouldNot(visible);
     }
 
     @Step("Неуспешный логин")
